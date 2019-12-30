@@ -3,7 +3,7 @@ package org.fossasia.susi.ai.skills.skilllisting.adapters.viewholders
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import kotterknife.bindView
 import org.fossasia.susi.ai.R
@@ -18,7 +18,7 @@ class SkillGroupViewHolder(
 ) :
     RecyclerView.ViewHolder(itemView), View.OnClickListener {
 
-    val groupParent: LinearLayout by bindView(R.id.group_parent)
+    val groupParent: RelativeLayout by bindView(R.id.group_parent)
     val groupName: TextView by bindView(R.id.group)
     val arrowIcon: ImageView by bindView(R.id.ic_arrow)
 
