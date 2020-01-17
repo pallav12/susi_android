@@ -1,6 +1,7 @@
 package org.fossasia.susi.ai.signup
 
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.action.ViewActions.scrollTo
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -62,5 +63,11 @@ class SignUpActivityTest {
         // checks if sign up button is present
         onView(withId(R.id.signUp)).perform(scrollTo())
         onView(withId(R.id.signUp)).check(matches(isDisplayed()))
+
+        // checks if signupToLogin button is present and performs click to open Login Activity
+        onView(withId(R.id.signUpToLogin)).perform(scrollTo())
+        onView(withId(R.id.signUpToLogin)).check(matches(isDisplayed()))
+        onView(withId(R.id.signUpToLogin)).perform(click())
+        onView(withId(R.id.activity_login)).check(matches(isDisplayed()))
     }
 }

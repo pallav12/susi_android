@@ -1,7 +1,10 @@
 package org.fossasia.susi.ai.chat
 
 import android.Manifest
+import android.content.Context
+import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
@@ -10,7 +13,9 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.rule.GrantPermissionRule
 import android.support.test.runner.AndroidJUnit4
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import java.io.IOException
+import junit.framework.Assert.assertTrue
 import org.fossasia.susi.ai.R
 import org.junit.Before
 import org.junit.FixMethodOrder
@@ -80,5 +85,33 @@ class ChatActivityTest {
 
         // checks if microphone button is present
         onView(withId(R.id.btnSpeak)).check(matches(isDisplayed()))
+
+        // checks if search button is present
+        onView(withId(R.id.searchChat)).check(matches(isDisplayed()))
+
+        // checks if voice search button is present
+        onView(withId(R.id.voiceSearchChat)).check(matches(isDisplayed()))
+
+        // checks if base coordinator_layout is present
+        onView(withId(R.id.coordinator_layout)).check(matches(isDisplayed()))
+
+        // checks if settings button is present
+        onView(withId(R.id.fabsetting)).check(matches(isDisplayed()))
+
+        // performs click on search icon and checks if search input is present
+        onView(withId(R.id.searchChat)).perform(click())
+        onView(withId(R.id.chatSearchInput)).check(matches(isDisplayed()))
+
+        // checks if keyboard is shown on search input click
+        assertTrue(isKeyboardShown())
+
+        // performs click on settings button and checks if Skills activity is open
+        onView(withId(R.id.fabsetting)).perform(click())
+        onView(withId(R.id.fragment_container)).check(matches(isDisplayed()))
+    }
+
+    fun isKeyboardShown(): Boolean {
+        val inputMethodManager = InstrumentationRegistry.getInstrumentation().targetContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        return inputMethodManager.isAcceptingText
     }
 }
