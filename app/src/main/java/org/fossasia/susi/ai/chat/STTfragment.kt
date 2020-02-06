@@ -23,6 +23,8 @@ import org.fossasia.susi.ai.R
 import org.fossasia.susi.ai.chat.adapters.recycleradapters.VoiceCommandsAdapter
 import org.fossasia.susi.ai.chat.contract.IChatPresenter
 import org.fossasia.susi.ai.helper.PrefManager
+import org.koin.android.ext.android.inject
+import org.koin.core.parameter.parametersOf
 import timber.log.Timber
 
 /**
@@ -30,7 +32,7 @@ import timber.log.Timber
  */
 class STTFragment : Fragment() {
     lateinit var recognizer: SpeechRecognizer
-    lateinit var chatPresenter: IChatPresenter
+    val chatPresenter: IChatPresenter by inject { parametersOf(this) }
     private val thisActivity = activity
     private var textToSpeech: TextToSpeech? = null
     private val mainHandler: Handler = Handler()
@@ -38,7 +40,6 @@ class STTFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        chatPresenter = ChatPresenter(requireContext())
     }
 
     @NonNull
@@ -140,7 +141,6 @@ class STTFragment : Fragment() {
                 activity?.searchChat?.show()
                 activity?.voiceSearchChat?.show()
                 activity?.btnSpeak?.isEnabled = true
-                chatPresenter.startHotwordDetection()
                 activity?.supportFragmentManager?.popBackStackImmediate()
             }
 
